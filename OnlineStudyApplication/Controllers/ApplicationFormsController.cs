@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,6 +18,30 @@ namespace OnlineStudyApplication.Controllers
         public ApplicationFormsController(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        public class ApplicationsController : Controller
+        {
+            private readonly ApplicationDbContext _context;
+            private readonly UserManager<IdentityUser> _userManager;
+
+            public ApplicationsController(
+                ApplicationDbContext context,
+                UserManager<IdentityUser> userManager)
+            {
+                _context = context;
+                _userManager = userManager;
+            }
+
+            public async Task<IActionResult> MyApplications()
+            {
+                var userId = _userManager.GetUserId(User);
+                var applications = _context.ApplicationForms
+                    .Where(a => a.UserId == userId)
+                    .ToList();
+
+                return View(applications);
+            }
         }
 
         // GET: ApplicationForms
@@ -54,16 +79,17 @@ namespace OnlineStudyApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,CourseId,FullName,Email,Education,Status")] ApplicationForm applicationForm)
+        // GET: ApplicationForms/Create
+        public IActionResult Create(int courseId)
         {
-            if (ModelState.IsValid)
+            var application = new ApplicationForm
             {
-                _context.Add(applicationForm);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(applicationForm);
+                CourseId = courseId
+            };
+
+            return View(application);
         }
+
 
         // GET: ApplicationForms/Edit/5
         public async Task<IActionResult> Edit(int? id)
