@@ -2,31 +2,51 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="hero">
-    <h1>EasyApplications</h1>
-    <p>Apply online for accredited and professional study programs</p>
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-7">
+                <h1 class="hero-title">EasyApplications</h1>
+                <p class="hero-subtitle">
+                    Apply online for accredited and professional study programs
+                </p>
 
-    <a asp-controller="Courses"
-       asp-action="Index"
-       class="btn btn-primary btn-lg mt-4">
-        View Online Courses
-    </a>
-</div>
-
-<div class="section">
-    <h2 class="section-title">Why Choose EasyApplications?</h2>
-    <div class="row text-center">
-        <div class="col-md-4">
-            <h5>🎓 Accredited Courses</h5>
-            <p>Study recognised qualifications from trusted institutions.</p>
-        </div>
-        <div class="col-md-4">
-            <h5>💻 Flexible Learning</h5>
-            <p>Learn at your own pace from anywhere in the world.</p>
-        </div>
-        <div class="col-md-4">
-            <h5>📈 Career Advancement</h5>
-            <p>Gain skills that improve employability and growth.</p>
+                <a asp-controller="Courses"
+                   asp-action="Index"
+                   class="btn btn-light btn-lg mt-3">
+                    View Online Courses
+                </a>
+            </div>
         </div>
     </div>
-</div>
+</section>
+
+<section class="container mt-5">
+    <h2 class="text-center mb-4">Why Choose EasyApplications?</h2>
+
+    <div class="row text-center">
+        <div class="col-md-4 mb-4">
+            <div class="feature-card">
+                🎓
+                <h5 class="mt-3">Accredited Courses</h5>
+                <p>Study recognised qualifications from trusted institutions.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="feature-card">
+                💻
+                <h5 class="mt-3">Flexible Learning</h5>
+                <p>Learn at your own pace from anywhere in the world.</p>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="feature-card">
+                📈
+                <h5 class="mt-3">Career Advancement</h5>
+                <p>Gain skills that improve employability and growth.</p>
+            </div>
+        </div>
+    </div>
+</section>

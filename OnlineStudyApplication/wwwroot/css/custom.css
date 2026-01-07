@@ -1,7 +1,10 @@
-﻿/* ===== GLOBAL ===== */
+﻿/* =========================
+   GLOBAL APPLICATION BACKGROUND
+========================= */
 body {
-    background-color: #f8f9fa;
-    font-family: 'Segoe UI', sans-serif;
+    background-color: #eef2f7; /* professional application background */
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #1f2933;
 }
 
 /* ===== NAVBAR ===== */
@@ -19,12 +22,13 @@ body {
         }
 
 /* ===== HERO SECTION ===== */
-.hero {
-    background: linear-gradient(135deg, #0d1b2a, #1b263b);
-    color: white;
-    padding: 100px 20px;
-    text-align: center;
+.hero-section {
+    background: linear-gradient(135deg, #1b263b, #415a77);
+    color: #ffffff;
+    padding: 90px 0;
+    border-radius: 12px;
 }
+
 
     .hero h1 {
         font-size: 3rem;
@@ -36,15 +40,23 @@ body {
         margin-top: 15px;
     }
 
-/* ===== BUTTONS ===== */
 .btn-primary {
-    background-color: #415a77;
+    background-color: #1b263b;
     border: none;
+    font-weight: 500;
 }
 
     .btn-primary:hover {
-        background-color: #1b263b;
+        background-color: #0d1b2a;
     }
+
+.btn-light {
+    background-color: #ffffff;
+    color: #1b263b;
+    border: none;
+    font-weight: 600;
+}
+
 
 /* ===== SECTION ===== */
 .section {
@@ -74,95 +86,54 @@ footer {
     padding: 20px;
     text-align: center;
 }
-
 /* =========================
-   GLOBAL
+   HOME PAGE HERO
 ========================= */
-body {
-    background-color: #f8f9fa;
-    font-family: "Segoe UI", Arial, sans-serif;
+.hero-section {
+    background: linear-gradient(135deg, #0d1b2a, #1b263b);
+    color: #ffffff;
+    padding: 100px 0;
 }
 
-/* =========================
-   NAVBAR
-========================= */
-.navbar {
-    background-color: #0d1b2a !important;
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
 }
 
-.navbar-brand,
-.navbar-nav .nav-link {
-    color: #ffffff !important;
-    font-weight: 500;
-}
-
-    .navbar-nav .nav-link:hover {
-        color: #e0e1dd !important;
-    }
-
-/* =========================
-   PAGE HEADINGS
-========================= */
-h1, h2, h3 {
-    color: #0d1b2a;
-    font-weight: 600;
+.hero-subtitle {
+    font-size: 1.2rem;
+    margin-top: 15px;
+    max-width: 600px;
 }
 
 /* =========================
-   TABLE (COURSES)
+   FEATURE CARDS
 ========================= */
-.table {
-    background-color: #ffffff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+.feature-card {
+    background: #354540;
+    border-radius: 10px;
+    padding: 30px 20px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    height: 100%;
 }
 
-    .table thead {
-        background-color: #1b263b;
-        color: #ffffff;
-    }
-
-    .table th {
+    .feature-card h5 {
+        color: #0d1b2a;
         font-weight: 600;
     }
 
-/* =========================
-   BUTTONS
-========================= */
-.btn-primary {
-    background-color: #415a77;
-    border: none;
-}
-
-    .btn-primary:hover {
-        background-color: #1b263b;
-    }
-
-.btn-outline-primary {
-    border-color: #415a77;
-    color: #415a77;
-}
-
-    .btn-outline-primary:hover {
-        background-color: #415a77;
-        color: #ffffff;
+    .feature-card p {
+        color: #555;
+        font-size: 0.95rem;
     }
 
 /* =========================
-   FOOTER
+   APP CONTAINER
 ========================= */
-footer {
-    background-color: #0d1b2a;
-    color: #ffffff;
-    padding: 15px 0;
+.app-container {
+    background-color: #ffffff;
+    padding: 40px;
+    margin-top: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
-
-    footer a {
-        color: #e0e1dd;
-        text-decoration: none;
-    }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
