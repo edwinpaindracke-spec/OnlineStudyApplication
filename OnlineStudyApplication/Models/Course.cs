@@ -7,6 +7,7 @@ namespace OnlineStudyApplication.Models
         public int Id { get; set; }
 
         [Required]
+        public ICollection<CourseRequirement> Requirements { get; set; }
         public string CourseName { get; set; }
 
         public string Description { get; set; }

@@ -54,6 +54,7 @@ namespace OnlineStudyApplication.Controllers
 
         [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id) => View();
+
         public IActionResult CheckEligibility(int id)
         {
             var model = new EligibilityViewModel

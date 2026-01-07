@@ -13,5 +13,7 @@ namespace OnlineStudyApplication.Data
 
         public DbSet<Course> Courses { get; set; }
         public DbSet<ApplicationForm> ApplicationForms { get; set; }
+        public DbSet<CourseRequirement> CourseRequirements { get; set; }
+
     }
 }
