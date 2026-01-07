@@ -1,0 +1,44 @@
+﻿@model OnlineStudyApplication.Models.EligibilityViewModel
+
+<h2>Check Eligibility</h2>
+
+<form asp-action="CheckEligibility" method="post">
+    <input type="hidden" asp-for="CourseId" />
+
+    <div class="mb-3">
+        <label>Average Mark (%)</label>
+        <input asp-for="AverageMark" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label>Did you take Mathematics?</label>
+        <select asp-for="HasMath" class="form-control">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Math Mark (%)</label>
+        <input asp-for="MathMark" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Check</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert @(Model.IsEligible ? "alert-success" : "alert-danger") mt-4">
+        @Model.Message
+    </div>
+
+    if (Model.IsEligible)
+    {
+        <a asp-controller="ApplicationForms"
+           asp-action="Create"
+           asp-route-courseId="@Model.CourseId"
+           class="btn btn-success mt-3">
+            Apply Now
+        </a>
+    }
+}

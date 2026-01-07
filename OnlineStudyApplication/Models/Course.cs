@@ -12,5 +12,9 @@ namespace OnlineStudyApplication.Models
         public string Description { get; set; }
 
         public string Duration { get; set; }
+        public int MinimumAverage { get; set; }
+        public bool RequiresMath { get; set; }
+        public int MinimumMathMark { get; set; }
+
     }
 }

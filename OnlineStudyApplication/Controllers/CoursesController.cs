@@ -54,6 +54,45 @@ namespace OnlineStudyApplication.Controllers
 
         [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id) => View();
+        public IActionResult CheckEligibility(int id)
+        {
+            var model = new EligibilityViewModel
+            {
+                CourseId = id
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CheckEligibility(EligibilityViewModel model)
+        {
+            var course = await _context.Courses.FindAsync(model.CourseId);
+            if (course == null) return NotFound();
+
+            if (model.AverageMark < course.MinimumAverage)
+            {
+                model.IsEligible = false;
+                model.Message = "Your average mark does not meet the minimum requirement.";
+                return View(model);
+            }
+
+            if (course.RequiresMath)
+            {
+                if (!model.HasMath || model.MathMark < course.MinimumMathMark)
+                {
+                    model.IsEligible = false;
+                    model.Message = "This course requires Mathematics with sufficient marks.";
+                    return View(model);
+                }
+            }
+
+            model.IsEligible = true;
+            model.Message = "You meet the requirements for this course!";
+            return View(model);
+        }
+
     }
 }
 
