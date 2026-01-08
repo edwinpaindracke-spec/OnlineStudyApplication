@@ -76,6 +76,7 @@ namespace OnlineStudyApplication.Controllers
             return View();
         }
 
+
         // POST: ApplicationForms/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -84,12 +85,14 @@ namespace OnlineStudyApplication.Controllers
         // GET: ApplicationForms/Create
         public IActionResult Create(int courseId)
         {
-            var application = new ApplicationForm
+            if (TempData["IsEligible"] == null ||
+                !(bool)TempData["IsEligible"] ||
+                (int)TempData["EligibleCourseId"] != courseId)
             {
-                CourseId = courseId
-            };
+                return RedirectToAction("Index", "Courses");
+            }
 
-            return View(application);
+            return View(new ApplicationForm { CourseId = courseId });
         }
 
 
