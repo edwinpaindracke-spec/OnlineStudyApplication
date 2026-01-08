@@ -81,16 +81,23 @@ namespace OnlineStudyApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // GET: ApplicationForms/Create
-        public IActionResult Create(int courseId)
+        public async Task<IActionResult> Create(ApplicationForm model)
         {
-            var application = new ApplicationForm
+            if (!ModelState.IsValid)
             {
-                CourseId = courseId
-            };
+                return View(model);
+            }
 
-            return View(application);
+            // 🔐 Set server-side values
+            model.UserId = User.Identity?.Name;
+            model.Status = "Pending";
+
+            _context.ApplicationForms.Add(model);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
+
 
 
         // GET: ApplicationForms/Edit/5
