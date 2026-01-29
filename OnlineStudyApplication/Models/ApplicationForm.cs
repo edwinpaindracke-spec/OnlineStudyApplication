@@ -11,6 +11,9 @@ namespace OnlineStudyApplication.Models
 
         [Required]
         public int CourseId { get; set; }
+        // ✅ ADD THIS
+        public Course Course { get; set; }
+
 
         [Required]
         public string FullName { get; set; }
