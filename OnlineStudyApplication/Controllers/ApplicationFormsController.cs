@@ -22,29 +22,7 @@ namespace OnlineStudyApplication.Controllers
             _context = context;
         }
 
-        public class ApplicationsController : Controller
-        {
-            private readonly ApplicationDbContext _context;
-            private readonly UserManager<IdentityUser> _userManager;
-
-            public ApplicationsController(
-                ApplicationDbContext context,
-                UserManager<IdentityUser> userManager)
-            {
-                _context = context;
-                _userManager = userManager;
-            }
-
-            public async Task<IActionResult> MyApplications()
-            {
-                var userId = _userManager.GetUserId(User);
-                var applications = _context.ApplicationForms
-                    .Where(a => a.UserId == userId)
-                    .ToList();
-
-                return View(applications);
-            }
-        }
+       
 
         // GET: ApplicationForms
         public async Task<IActionResult> Index()

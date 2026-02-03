@@ -65,34 +65,67 @@ namespace OnlineStudyApplication.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CheckEligibility(EligibilityViewModel model)
+   [HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> CheckEligibility(EligibilityViewModel model)
+{
+    var course = await _context.Courses
+        .FirstOrDefaultAsync(c => c.Id == model.CourseId);
+
+    if (course == null)
+    {
+        model.IsEligible = false;
+        model.Message = "Course not found.";
+        return View(model);
+    }
+
+    // ❗ Default: NOT eligible
+    model.IsEligible = false;
+
+    // 🔒 Validate certificate upload
+    if (model.CertificateFile == null || model.CertificateFile.Length == 0)
+    {
+        model.Message = "Please upload your certificate.";
+        return View(model);
+    }
+
+    // ✅ Average mark check
+    if (model.AverageMark < course.MinimumAverage)
+    {
+        model.Message =
+            $"You do not qualify. Minimum average required is {course.MinimumAverage}%.";
+        return View(model);
+    }
+
+    // ✅ Mathematics requirement
+    if (course.RequiresMath)
+    {
+        if (!model.HasMath)
         {
-            var course = await _context.Courses.FindAsync(model.CourseId);
-            if (course == null) return NotFound();
-
-            if (model.AverageMark < course.MinimumAverage)
-            {
-                model.IsEligible = false;
-                model.Message = "Your average mark does not meet the minimum requirement.";
-                return View(model);
-            }
-
-            if (course.RequiresMath)
-            {
-                if (!model.HasMath || model.MathMark < course.MinimumMathMark)
-                {
-                    model.IsEligible = false;
-                    model.Message = "This course requires Mathematics with sufficient marks.";
-                    return View(model);
-                }
-            }
-
-            model.IsEligible = true;
-            model.Message = "You meet the requirements for this course!";
+            model.Message =
+                "You do not qualify. Mathematics is required for this course.";
             return View(model);
         }
+
+        if (model.MathMark == null || model.MathMark < course.MinimumMathMark)
+        {
+            model.Message =
+                $"You do not qualify. Minimum Mathematics mark required is {course.MinimumMathMark}%.";
+            return View(model);
+        }
+    }
+
+    // ✅ PASSED ALL CHECKS
+    model.IsEligible = true;
+    model.Message = "You meet the requirements for this course!";
+
+    // 🔐 Store eligibility for Apply lock
+    TempData["IsEligible"] = true;
+    TempData["EligibleCourseId"] = model.CourseId;
+
+    return View(model);
+}
+
 
     }
 }

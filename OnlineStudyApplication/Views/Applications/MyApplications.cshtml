@@ -1,0 +1,56 @@
+﻿@model IEnumerable<OnlineStudyApplication.Models.ApplicationForm>
+
+@{
+    ViewData["Title"] = "My Applications";
+}
+
+<h2>My Applications</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        You have not applied for any courses yet.
+    </div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Course</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Education</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Course?.Name</td>
+                    <td>@item.FullName</td>
+                    <td>@item.Email</td>
+                    <td>@item.Education</td>
+                    <td>
+                        <span class="badge
+                                @(item.Status == "Pending" ? "bg-warning" :
+                                                        item.Status == "Approved" ? "bg-success" :
+                                                        "bg-danger")">
+                    @item.Status
+                </span>
+            </td>
+            <td>
+                <a asp-controller="ApplicationForms"
+                   asp-action="Details"
+                   asp-route-id="@item.Id"
+                   class="btn btn-sm btn-primary">
+                    View
+                </a>
+            </td>
+        </tr>
+                }
+        </tbody>
+    </table>
+}
