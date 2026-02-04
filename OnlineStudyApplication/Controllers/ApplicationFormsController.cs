@@ -52,9 +52,10 @@ namespace OnlineStudyApplication.Controllers
                 return View(applicationForm);
             }
 
-            // 🔐 ALWAYS set server-side values
-            applicationForm.UserId = _userManager.GetUserId(User); // NOT email
-            applicationForm.Status = "Pending";
+            // 🔐 SERVER-SIDE VALUES ONLY
+            applicationForm.UserId = _userManager.GetUserId(User); // sets Identity user ID
+            applicationForm.Status = "Pending"; // default status
+
 
             // 💾 Save
             _context.ApplicationForms.Add(applicationForm);
