@@ -61,8 +61,14 @@ namespace OnlineStudyApplication.Controllers
             _context.ApplicationForms.Add(applicationForm);
             await _context.SaveChangesAsync();
 
-            // 🚀 Redirect so page does NOT reload
-            return RedirectToAction("MyApplications", "Applications");
+            // Redirect to success page
+            return RedirectToAction("SubmitSuccess");
+        }
+
+        // GET: ApplicationForms/SubmitSuccess
+        public IActionResult SubmitSuccess()
+        {
+            return View();
         }
 
         // GET: ApplicationForms
