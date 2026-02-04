@@ -16,13 +16,53 @@ namespace OnlineStudyApplication.Controllers
     public class ApplicationFormsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ApplicationFormsController(ApplicationDbContext context)
+        public ApplicationFormsController(
+    ApplicationDbContext context,
+    UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-       
+        public IActionResult Create()
+        {
+            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "CourseName");
+            return View();
+        }
+
+        // POST: ApplicationForms/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(ApplicationForm applicationForm)
+        {
+            // 🔍 Safety check – show validation errors if any
+            if (!ModelState.IsValid)
+            {
+                ViewData["CourseId"] = new SelectList(
+                    _context.Courses,
+                    "Id",
+                    "CourseName",
+                    applicationForm.CourseId
+                );
+
+                return View(applicationForm);
+            }
+
+            // 🔐 ALWAYS set server-side values
+            applicationForm.UserId = _userManager.GetUserId(User); // NOT email
+            applicationForm.Status = "Pending";
+
+            // 💾 Save
+            _context.ApplicationForms.Add(applicationForm);
+            await _context.SaveChangesAsync();
+
+            // 🚀 Redirect so page does NOT reload
+            return RedirectToAction("MyApplications", "Applications");
+        }
 
         // GET: ApplicationForms
         public async Task<IActionResult> Index()
@@ -53,33 +93,10 @@ namespace OnlineStudyApplication.Controllers
             return View(applicationForm);
         }
 
-        // GET: ApplicationForms/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        
 
-        // POST: ApplicationForms/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ApplicationForm model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+      
 
-            // 🔐 Set server-side values
-            model.UserId = User.Identity?.Name;
-            model.Status = "Pending";
-
-            _context.ApplicationForms.Add(model);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
-        }
 
 
 
