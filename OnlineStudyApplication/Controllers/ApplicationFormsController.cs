@@ -52,14 +52,18 @@ namespace OnlineStudyApplication.Controllers
                 return View(applicationForm);
             }
 
-           
+            // 🔐 REQUIRED SERVER VALUES
+            applicationForm.UserId = _userManager.GetUserId(User);
+            applicationForm.Status = "Pending";
+
 
             // 💾 Save
             _context.ApplicationForms.Add(applicationForm);
             await _context.SaveChangesAsync();
 
-            // Redirect to success page
-            return RedirectToAction("SubmitSuccess");
+
+            // ✅ THIS WILL NOW ALWAYS REDIRECT
+            return RedirectToAction(nameof(SubmitSuccess));
         }
 
         // GET: ApplicationForms/SubmitSuccess
@@ -67,6 +71,20 @@ namespace OnlineStudyApplication.Controllers
         {
             return View();
         }
+
+        // GET: ApplicationForms/MyApplications
+        public async Task<IActionResult> MyApplications()
+        {
+            var userId = _userManager.GetUserId(User);
+
+            var applications = await _context.ApplicationForms
+                .Include(a => a.Course)
+                .Where(a => a.UserId == userId)
+                .ToListAsync();
+
+            return View(applications);
+        }
+
 
         // GET: ApplicationForms
         public async Task<IActionResult> Index()

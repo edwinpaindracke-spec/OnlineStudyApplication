@@ -6,11 +6,13 @@ namespace OnlineStudyApplication.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        
         public string UserId { get; set; }
 
-        [Required]
+        // ✅ Selected from dropdown
+        [Required(ErrorMessage = "Please select a course")]
         public int CourseId { get; set; }
+
         // ✅ ADD THIS
         public Course Course { get; set; }
 
