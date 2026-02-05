@@ -2,11 +2,11 @@
     ViewData["Title"] = "Application Submitted";
 }
 
-<h2>Application Submitted Successfully!</h2>
-<p>Thank you for submitting your application.</p>
-
-<div class="mt-3">
-    <a asp-controller="Applications" asp-action="MyApplications" class="btn btn-primary">
-        View My Applications
-    </a>
+<div class="alert alert-success">
+    <h4>Application Submitted Successfully 🎉</h4>
+    <p>Your application has been received.</p>
 </div>
+
+<a asp-action="MyApplications" class="btn btn-primary">
+    View My Applications
+</a>

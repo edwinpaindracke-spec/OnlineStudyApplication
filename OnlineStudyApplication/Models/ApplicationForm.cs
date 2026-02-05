@@ -7,15 +7,12 @@ namespace OnlineStudyApplication.Models
     {
         public int Id { get; set; }
 
-        [Required]
-        public string UserId { get; set; }
-
+        // ✅ USER SELECTS COURSE VIA CourseId
         [Required]
         public int CourseId { get; set; }
 
-        // Navigation property ✅
-        public Course Course { get; set; }
 
+        
         [Required]
         public string FullName { get; set; }
 
@@ -23,8 +20,6 @@ namespace OnlineStudyApplication.Models
         public string Email { get; set; }
 
         public string Education { get; set; }
-
-        public string Status { get; set; } = "Pending";
 
     }
 }
