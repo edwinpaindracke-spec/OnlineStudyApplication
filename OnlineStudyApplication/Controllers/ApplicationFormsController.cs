@@ -72,7 +72,7 @@ namespace OnlineStudyApplication.Controllers
         public async Task<IActionResult> Index()
         {
             var applications = await _context.ApplicationForms
-                .Include(a => a.CourseId)
+                .Include(a => a.Course)
                 .ToListAsync();
 
             return View(applications);
@@ -125,7 +125,7 @@ namespace OnlineStudyApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CourseId,FullName,Email,Education")] ApplicationForm applicationForm)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,CourseId,FullName,Email,Education,Status")] ApplicationForm applicationForm)
         {
             if (id != applicationForm.Id)
             {

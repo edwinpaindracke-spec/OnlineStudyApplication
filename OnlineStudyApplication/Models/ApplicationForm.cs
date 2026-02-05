@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace OnlineStudyApplication.Models
 {
@@ -7,12 +6,15 @@ namespace OnlineStudyApplication.Models
     {
         public int Id { get; set; }
 
-        // ✅ USER SELECTS COURSE VIA CourseId
+        [Required]
+        public string UserId { get; set; }
+
         [Required]
         public int CourseId { get; set; }
+        // ✅ ADD THIS
+        public Course Course { get; set; }
 
 
-        
         [Required]
         public string FullName { get; set; }
 
@@ -21,5 +23,6 @@ namespace OnlineStudyApplication.Models
 
         public string Education { get; set; }
 
+        public string Status { get; set; } = "Pending";
     }
 }

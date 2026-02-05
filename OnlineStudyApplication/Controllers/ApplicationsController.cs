@@ -29,7 +29,7 @@ namespace OnlineStudyApplication.Controllers
             var userId = _userManager.GetUserId(User);
 
             var applications = await _context.ApplicationForms
-                .Include(a => a.Course)
+                .Include(a => a.UserId)
                 .Where(a => a.UserId == userId)
                 .ToListAsync();
 
