@@ -6,25 +6,25 @@ namespace OnlineStudyApplication.Models
     {
         public int Id { get; set; }
 
-        
-        public string UserId { get; set; }
+        // 🔐 Server-side only (must be nullable)
+        public string? UserId { get; set; }
 
-        // ✅ Selected from dropdown
+        // ✅ Selected by user
         [Required(ErrorMessage = "Please select a course")]
         public int CourseId { get; set; }
 
-        // ✅ ADD THIS
-        public Course Course { get; set; }
-
+        // 🧭 Navigation property (never required)
+        public Course? Course { get; set; }
 
         [Required]
         public string FullName { get; set; }
 
-        [Required]
+        [Required, EmailAddress]
         public string Email { get; set; }
 
         public string Education { get; set; }
 
-        public string Status { get; set; } = "Pending";
+        // 🔐 Server-side only
+        public string? Status { get; set; }
     }
 }
