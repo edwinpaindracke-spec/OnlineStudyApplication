@@ -69,8 +69,9 @@ namespace OnlineStudyApplication.Controllers
         // GET: ApplicationForms/SubmitSuccess
         public IActionResult SubmitSuccess()
         {
-            return View();
+            return Content("SubmitSuccess reached");
         }
+
 
         // GET: ApplicationForms/MyApplications
         public async Task<IActionResult> MyApplications()
