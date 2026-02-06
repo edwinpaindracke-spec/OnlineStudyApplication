@@ -52,6 +52,11 @@ namespace OnlineStudyApplication.Controllers
                 return View(applicationForm);
             }
 
+            if (!ModelState.IsValid)
+            {
+                return Content("MODEL STATE INVALID");
+            }
+
             // 🔐 REQUIRED SERVER VALUES
             applicationForm.UserId = _userManager.GetUserId(User);
             applicationForm.Status = "Pending";
